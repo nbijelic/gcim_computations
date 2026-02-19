@@ -51,6 +51,7 @@ import pandas as pd
 import scipy
 import copy
 from pathlib import Path
+from os.path import join
 from scipy.interpolate import interpn
 
 ### plotting
@@ -2415,16 +2416,19 @@ class ConditionalSpectra(object):
         Path(folder_path).mkdir(parents=True, exist_ok=True)
         
         # save numpy arrays to csv files
-        np.savetxt(folder_path + "ln_mu.csv", 
+        np.savetxt(join(folder_path, "ln_mu.csv"), 
                       self.CS_target['ln_mu_cond'], delimiter=",")
-        np.savetxt(folder_path + "ln_std.csv", 
+        np.savetxt(join(folder_path, "ln_std.csv"), 
                       self.CS_target['ln_std_cond'], delimiter=",")
-        np.savetxt(folder_path + "ln_cov_mat.csv", 
-                      self.CS_target['ln_cov_mat_cond'], delimiter=",")        
+        np.savetxt(join(folder_path, "ln_cov_mat.csv"), 
+                      self.CS_target['ln_cov_mat_cond'], delimiter=",")
+        np.savetxt(join(folder_path, "cs_periods.csv"), 
+                      self.CS_target['period_arr_cs'], delimiter=",")         
         
     
     def plot_CS(self, legend_title = None, is_sample_CS = True, n_sample = 25,
-                is_plot_cs = True, is_plot_da5_75 = True):
+                is_plot_cs = True, is_plot_da5_75 = True, fig_name = None,
+                is_save_fig = False):
         """Function to plot the conditional spectrum after the computation is done"""
         
         # get all IMs, see which ones are Sa and their periods
@@ -2528,6 +2532,8 @@ class ConditionalSpectra(object):
                 plt.legend(loc = 'lower left', title = legend_title)
             plt.xlabel('Period (s)')
             plt.ylabel(r'$S_a (g)$')
+            if is_save_fig:
+                plt.savefig(fig_name+'_cs.png', bbox_inches='tight')
             plt.show()
         
         # If there are non-Sa IMs in the im_obj_lst, then plot separate figure
@@ -2571,6 +2577,8 @@ class ConditionalSpectra(object):
                     plt.ylim(0, 1)
                     plt.xlim(1, 500)
                     plt.xscale('log')
+                    if is_save_fig:
+                        plt.savefig(fig_name+'_da5-75.png', bbox_inches='tight')
                     plt.show()
                 
 #%% EXACT CS Computation from the deaggregation output
