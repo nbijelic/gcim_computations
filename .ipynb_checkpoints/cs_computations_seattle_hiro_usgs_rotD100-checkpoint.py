@@ -955,33 +955,19 @@ site_cse = mhu.Site(Vs30=vs30_seattle,
                     Z25=z_2p5_seattle,  
                     Z10=z_1p0_seattle_bahrampouri_2021)  
 
-# Note to Hiro: This caused the difference the last time 
-# rup_mean = mhu.Rup(M=src_dist_dict[0]['M'],
-#                    R=None,  # not needed
-#                    Rjb=src_dist_dict[0]['R_jb'],
-#                    Rrup=np.array([86.58347057]),
-#                    Rx=np.array([56.13215502]),
-#                    Fhw=0,
-#                    W=src_dist_dict[1]['W'],
-#                    delta=src_dist_dict[1]['delta'],
-#                    lam=src_dist_dict[1]['lambda'],
-#                    hypo_depth=np.array([53.17]),
-#                    Ztor=np.array([46.13]),  
-#                    trt='subduction_inslab')
 
 rup_mean = mhu.Rup(M=src_dist_dict[0]['M'],
-                   R=None,
+                   R=None,  # not needed
                    Rjb=src_dist_dict[0]['R_jb'],
-                   Rrup=src_dist_dict[2]['R_rup'],
-                   Rx=src_dist_dict[2]['R_x'],
+                   Rrup=np.array([86.58347057]),
+                   Rx=np.array([56.13215502]),
                    Fhw=0,
                    W=src_dist_dict[1]['W'],
                    delta=src_dist_dict[1]['delta'],
-                   lam=src_dist_dict[1]['lambda'],  
-                   hypo_depth=src_dist_dict[1]['Z_hyp'],
-                   Ztor=src_dist_dict[1]['Z_tor'],
-                   trt='subduction_inslab')  
-
+                   lam=src_dist_dict[1]['lambda'],
+                   hypo_depth=np.array([53.17]),
+                   Ztor=np.array([46.13]),  
+                   trt='subduction_inslab')
 
 # -----------------------------------------------------------------------------
 # Define IM_star and the list of IM_cond for CS computations
@@ -1156,8 +1142,7 @@ rup_mean = mhu.Rup(M=src_dist_dict[0]['M'],
 # -----------------------------------------------------------------------------
 
 # IM_star & IM_cond -- Sa, SaAvg
-#GMPE_to_use ='AbrahamsonEtAl2015SInter' # check the effect of using a different GMM
-GMPE_to_use = 'AG_2020'
+GMPE_to_use ='AbrahamsonEtAl2015SInter' # check the effect of using a different GMM
 
 iml_im_star = 0.488  # conditioning value of the IM, RotD100
 
